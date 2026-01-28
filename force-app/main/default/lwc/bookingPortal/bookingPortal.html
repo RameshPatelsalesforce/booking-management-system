@@ -1,0 +1,66 @@
+<template>
+    <lightning-card title="📦 My Bookings" icon-name="standard:shipment">
+
+        <!-- FILTER -->
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+                label="Filter by Status"
+                value={statusFilter}
+                options={statusOptions}
+                onchange={handleStatusChange}>
+            </lightning-combobox>
+        </div>
+
+        <!-- LOADING -->
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+
+        <!-- BOOKINGS -->
+        <template if:true={filteredBookings}>
+            <div class="slds-p-around_medium">
+                <template for:each={filteredBookings} for:item="booking">
+                    <div key={booking.Id}
+                         class="booking-card"
+                         data-id={booking.Id}
+                         onclick={handleBookingSelect}>
+
+                        <h3>{booking.Consignment_Number__c}</h3>
+
+                        <p><b>Status:</b> {booking.Status__c}</p>
+                        <p><b>Delivery Date:</b> {booking.Delivery_Date__c}</p>
+                        <p><b>Logistics:</b> {booking.Logistic_Company__c}</p>
+                        <p><b>Address:</b> {booking.Delivery_Address__c}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- NO DATA -->
+        <template if:true={noData}>
+            <p class="slds-p-around_medium slds-text-color_error">
+                No bookings found.
+            </p>
+        </template>
+
+        <!-- HISTORY -->
+        <template if:true={selectedBookingId}>
+            <lightning-card title="📜 Booking History">
+                <template if:true={history}>
+                    <div class="slds-p-around_medium">
+                        <template for:each={history} for:item="h">
+                            <div key={h.Id} class="history-box">
+                                <p>
+                                    <b>{h.Field_Changed__c}</b> :
+                                    {h.Old_Value__c} → {h.New_Value__c}
+                                </p>
+                                <small>{h.Change_Date__c}</small>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </lightning-card>
+        </template>
+
+    </lightning-card>
+</template>

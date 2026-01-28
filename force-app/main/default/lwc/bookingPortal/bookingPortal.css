@@ -1,0 +1,18 @@
+.booking-card {
+    border: 1px solid #d8dde6;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    background: #f9fbfd;
+}
+
+.booking-card:hover {
+    background: #eef4ff;
+}
+
+.history-box {
+    border-left: 4px solid #0176d3;
+    padding-left: 10px;
+    margin-bottom: 8px;
+}
